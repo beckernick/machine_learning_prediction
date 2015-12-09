@@ -10,6 +10,8 @@ library(caret)
 library(corrplot)
 library(stringr)
 library(pROC)
+library(devtools)
+reload(inst("dplyr"))
 
 adult = read.csv("/users/nickbecker/downloads/adult_data_uci.csv", header=FALSE,
                  stringsAsFactors = FALSE)
@@ -60,7 +62,7 @@ validation = adult[-inTrain,]
 
 # model parameters
 fitControl = trainControl(method = "cv",
-                          number = 3,
+                          number = 10,
                           #summaryFunction=twoClassSummary,
                           #classProbs=TRUE,
                           verboseIter = TRUE)
@@ -80,11 +82,38 @@ gbmFit1 = train(x=training[, c(-15)],
                 tuneGrid = gbmGrid,
                 verbose = TRUE)
 gbmFit1
-varImp(gbmFit1)
+plot(varImp(gbmFit1))
 plot(gbmFit1)
 
 gbm_preds = predict(gbmFit1, select(validation, -income_bucket))
 confusionMatrix(gbm_preds, validation$income_bucket)
+
+#Confusion Matrix and Statistics
+
+#               Reference
+#Prediction  over_50k under_50k
+#over_50k      1011       291
+#under_50k      557      4653
+
+#Accuracy : 0.8698          
+#95% CI : (0.8614, 0.8779)
+#No Information Rate : 0.7592          
+#P-Value [Acc > NIR] : < 2.2e-16       
+
+#Kappa : 0.6219          
+#Mcnemar's Test P-Value : < 2.2e-16       
+                                          
+#            Sensitivity : 0.6448          
+#            Specificity : 0.9411          
+#         Pos Pred Value : 0.7765          
+#         Neg Pred Value : 0.8931          
+#             Prevalence : 0.2408          
+#         Detection Rate : 0.1553          
+#   Detection Prevalence : 0.1999          
+#      Balanced Accuracy : 0.7930          
+                                          
+#       'Positive' Class : over_50k        
+                                     
 
 # fit a random forest model
 set.seed(12)
@@ -97,10 +126,66 @@ rfFit1 = train(x=training[, -15],
                 trControl = fitControl)
 rfFit1
 plot(rfFit1)
+plot(varImp(rfFit1))
 
 
 rf_preds = predict(rfFit1, select(validation, -income_bucket))
 confusionMatrix(rf_preds, validation$income_bucket)
+
+#Confusion Matrix and Statistics
+
+#               Reference
+#Prediction  over_50k under_50k
+#over_50k      1327       954
+#under_50k      241      3990
+
+#Accuracy : 0.8165          
+#95% CI : (0.8069, 0.8258)
+#No Information Rate : 0.7592          
+#P-Value [Acc > NIR] : < 2.2e-16       
+
+#Kappa : 0.5655          
+#Mcnemar's Test P-Value : < 2.2e-16       
+                                          
+#            Sensitivity : 0.8463          
+#            Specificity : 0.8070          
+#         Pos Pred Value : 0.5818          
+#         Neg Pred Value : 0.9430          
+#             Prevalence : 0.2408          
+#         Detection Rate : 0.2038          
+#   Detection Prevalence : 0.3503          
+#      Balanced Accuracy : 0.8267          
+                                          
+#       'Positive' Class : over_50k  
+
+
+
+
+
+######## Assessment #########
+
+# GBM model is more accurate and is generally better
+# However, Random Forest model is MUCH better at predicting if income is > $50,000
+# Depending on goals, either one could be better
+
+
+
+# Save Plots
+jpeg("/users/nickbecker/documents/github/machine_learning_prediction/household_income_prediction/plots/gbm_accuracy.jpeg")
+plot(gbmFit1)
+dev.off()
+
+jpeg("/users/nickbecker/documents/github/machine_learning_prediction/household_income_prediction/plots/gbm_relative_variable_importance.jpeg")
+plot(varImp(gbmFit1))
+dev.off()
+
+jpeg("/users/nickbecker/documents/github/machine_learning_prediction/household_income_prediction/plots/rf_accuracy.jpeg")
+plot(rfFit1)
+dev.off()
+
+jpeg("/users/nickbecker/documents/github/machine_learning_prediction/household_income_prediction/plots/rf_relative_variable_importance.jpeg")
+plot(varImp(rfFit1))
+dev.off()
 
 
 
