@@ -1,0 +1,3 @@
+getwd()
+source("tumor_class_prediction.R")
+source("tumor_class_prediction.R")

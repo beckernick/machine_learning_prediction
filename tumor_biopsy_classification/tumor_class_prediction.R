@@ -36,7 +36,7 @@ validation = biopsy_nonmissing[-inTrain,]
 
 # model parameters
 fitControl = trainControl(method = "cv",
-                          number = 3,
+                          number = 10,
                           summaryFunction=twoClassSummary,
                           classProbs=TRUE,
                           verboseIter = TRUE)
@@ -51,7 +51,7 @@ rf_fit = train(x = training[, -c(1,11)], # don't train on the ID number
                trControl = fitControl)
 rf_fit
 
-jpeg("/users/nickbecker/documents/github/tumor_biopsy_classification/plots/random_forest_ROC.jpeg")
+jpeg("/users/nickbecker/documents/github/machine_learning_prediction/tumor_biopsy_classification/plots/random_forest_AUC.jpeg")
 plot(rf_fit)
 dev.off()
 
@@ -70,7 +70,7 @@ svm_fit = train(x = training[, -c(1,11)], # don't train on the ID number
                tuneGrid = svmGrid,
                trControl = fitControl)
 svm_fit
-jpeg("/users/nickbecker/documents/github/tumor_biopsy_classification/plots/svm_ROC.jpeg")
+jpeg("/users/nickbecker/documents/github/machine_learning_prediction/tumor_biopsy_classification/plots/svm_AUC.jpeg")
 plot(svm_fit)
 dev.off()
 
@@ -110,7 +110,7 @@ rf_imputed_fit = train(x = training_imputed[, -c(10)], # ID number isnt in this 
                trControl = fitControl)
 rf_imputed_fit
 
-jpeg("/users/nickbecker/documents/github/tumor_biopsy_classification/plots/random_forest_imputed_ROC.jpeg")
+jpeg("/users/nickbecker/documents/github/machine_learning_prediction/tumor_biopsy_classification/plots/random_forest_imputed_AUC.jpeg")
 plot(rf_imputed_fit)
 dev.off()
 
@@ -132,7 +132,7 @@ svm_imputed_fit = train(x = training_imputed[, -c(10)], # don't train on the ID 
                 trControl = fitControl)
 svm_imputed_fit
 
-jpeg("/users/nickbecker/documents/github/tumor_biopsy_classification/plots/svm_imputed_ROC.jpeg")
+jpeg("/users/nickbecker/documents/github/machine_learning_prediction/tumor_biopsy_classification/plots/svm_imputed_AUC.jpeg")
 plot(svm_imputed_fit)
 dev.off()
 
@@ -143,7 +143,7 @@ confusionMatrix(svm_imputed_preds, validation_imputed$class)
 
 # Let's optimize ROC curves and plot
 fitControl_roc = trainControl(method = "cv",
-                          number = 3,
+                          number = 10,
                           summaryFunction=twoClassSummary,
                           savePredictions = TRUE,
                           classProbs=TRUE,
