@@ -188,5 +188,3 @@ plot(varImp(rfFit1))
 dev.off()
 
 
-
-

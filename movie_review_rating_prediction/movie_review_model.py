@@ -4,6 +4,7 @@ Created on Sat Nov 21 19:35:14 2015
 
 @author: nickbecker
 """
+
 from __future__ import division, print_function
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -13,9 +14,9 @@ from sklearn.feature_extraction.text import CountVectorizer
 import numpy as np
 
 # Simple Bag of Words Model
-train = pd.read_csv("/users/nickbecker/Python Projects/imdb_data/labeledTrainData.tsv",
+train = pd.read_csv("/users/nickbecker/Python_Projects/imdb_data/labeledTrainData.tsv",
                     header=0, delimiter="\t", quoting=3)
-test = pd.read_csv("/users/nickbecker/Python Projects/imdb_data/testData.tsv",
+test = pd.read_csv("/users/nickbecker/Python_Projects/imdb_data/testData.tsv",
                     header=0, delimiter="\t", quoting=3)
 train.shape
 train.columns.values
@@ -130,53 +131,8 @@ test_data_features = test_data_features.toarray()
 # predict on the test data
 rf_predictions = forest.predict(test_data_features)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+output = pd.DataFrame(data={"id":test["id"], "sentiment":rf_predictions})
+output.to_csv("/users/nickbecker/documents/Github/machine_learning_prediction/movie_review_rating_prediction/Bag_of_Words_model.csv", index=False, quoting=3)
 
 
 
