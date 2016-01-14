@@ -1,0 +1,62 @@
+Data_Molecules,
+,
+Molecule,Molecule Number
+Market,Representation of Anatomic Therapeutical Class Number
+Active Ingredient ,Active substance in a pharmaceutical drug
+ATC Code,Anatomic Therapeutical Class
+Code_1,J Class
+Code_2,N Class
+Code_3,J02 Sub Class
+Code_4,J01 Sub Class
+Code_5,N05 Sub Class
+2008_A,Gross expenditure per capita in 2008
+2009_A,"Gross expenditure per capita in 2009 
+"
+2010_A,"Gross expenditure per capita in 2010
+"
+2011_A,"Gross expenditure per capita in 2011
+"
+2012_A,"Gross expenditure per capita in 2012
+"
+2013_A,"Gross expenditure per capita in 2013
+"
+2014_A,"Gross expenditure per capita in 2014
+"
+2008_B,DDD/1000 Person per day in 2008
+2009_B,DDD/1000 Person per day in 2009
+2010_B,DDD/1000 Person per day in 2010
+2011_B,DDD/1000 Person per day in 2011
+2012_B,DDD/1000 Person per day in 2012
+2013_B,DDD/1000 Person per day in 2013
+2014_B,DDD/1000 Person per day in 2014
+,
+ATC CODE DESCRIPTION,
+J02AC03,J ANTIINFECTIVES FOR SYSTEMIC USE
+,J02 ANTIMYCOTICS FOR SYSTEMIC USE
+,J02A ANTIMYCOTICS FOR SYSTEMIC USE
+,J02AC Triazole derivatives
+,
+J01XX08,J ANTIINFECTIVES FOR SYSTEMIC USE
+,J01 ANTIBACTERIALS FOR SYSTEMIC USE
+,J01X OTHER ANTIBACTERIALS
+,J01XX Other antibacterials
+,
+J01CR05,J ANTIINFECTIVES FOR SYSTEMIC USE
+,J01 ANTIBACTERIALS FOR SYSTEMIC USE
+,"J01C BETA-LACTAM ANTIBACTERIALS, PENICILLINS"
+,"J01CR Combinations of penicillins, incl. beta-lactamase inhibitors"
+,
+J01MA12,J ANTIINFECTIVES FOR SYSTEMIC USE
+,J01 ANTIBACTERIALS FOR SYSTEMIC USE
+,J01M QUINOLONE ANTIBACTERIALS
+,J01MA Fluoroquinolones
+,
+N05AH03,N NERVOUS SYSTEM
+,N05 PSYCHOLEPTICS
+,N05A ANTIPSYCHOTICS
+,"N05AH Diazepines, oxazepines, thiazepines and oxepines"
+,
+J01DH02,J ANTIINFECTIVES FOR SYSTEMIC USE
+,J01 ANTIBACTERIALS FOR SYSTEMIC USE
+,J01D OTHER BETA-LACTAM ANTIBACTERIALS
+,J01DH Carbapenems
