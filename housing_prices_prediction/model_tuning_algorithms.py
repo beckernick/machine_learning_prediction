@@ -168,18 +168,18 @@ set4_poly15_data['power_1'], set4_predictions_15, '-')
 
 
 
-### Cross Validation
+### 
 
 kc_house_train = pd.read_csv('/Users/nickbecker/Documents/Github/machine_learning_prediction/housing_prices_prediction/data/wk3_kc_house_train_data.csv', dtype=dtype_dict)
 kc_house_validation = pd.read_csv('/Users/nickbecker/Documents/Github/machine_learning_prediction/housing_prices_prediction/data/wk3_kc_house_valid_data.csv', dtype=dtype_dict)
 kc_house_test = pd.read_csv('/Users/nickbecker/Documents/Github/machine_learning_prediction/housing_prices_prediction/data/wk3_kc_house_test_data.csv', dtype=dtype_dict)
 
-
+best_rss = 1e20 # initialize to a high value
 for degree in range(1,16):
     poly_data_temp = polynomial_dataframe(kc_house_train['sqft_living'], degree)
     poly_data_temp['price'] = kc_house_train['price']
     
-    features_temp = poly_data_temp.columns[-2:-1]
+    features_temp = poly_data_temp.columns[:-1]
         
     model_temp = linear_model.LinearRegression()
     model_temp.fit(poly_data_temp[features_temp], poly_data_temp['price'])
@@ -190,26 +190,31 @@ for degree in range(1,16):
         
     # compute validation RSS
     model_temp_ssr = sum((validation_predictions - validation_temp['price'])**2)
-    print("Degree " + str(degree) + " Validation RSS: " + str(model_temp_ssr))
+    
+    if model_temp_ssr < best_rss:
+        best_rss = model_temp_ssr    
+        best_model = "Degree: " + str(degree)
+        
+print(best_model)
     
 
 
-# degree 2 on test data
-train_2 = polynomial_dataframe(kc_house_train['sqft_living'], 2)
-train_2['price'] = kc_house_train['price']
-features_2 = train_2.columns[-2:-1]
+# degree 6 on test data
+train_6 = polynomial_dataframe(kc_house_train['sqft_living'], 6)
+train_6['price'] = kc_house_train['price']
+features_6 = train_6.columns[:-1]
 
-model_2 = linear_model.LinearRegression()
-model_2.fit(train_2[features_2], train_2['price'])
+model_6 = linear_model.LinearRegression()
+model_6.fit(train_6[features_6], train_6['price'])
     
-test_2 = polynomial_dataframe(kc_house_test['sqft_living'], degree)
-test_2['price'] = kc_house_test['price']
+test_6 = polynomial_dataframe(kc_house_test['sqft_living'], 6)
+test_6['price'] = kc_house_test['price']
 
-test_2_predictions = model_2.predict(test_2[features_2])
+test_6_predictions = model_6.predict(test_6[features_6])
     
 # compute test 4 RSS
-test_2_rss = sum((test_2_predictions - test_2['price'])**2)
-print(test_2_rss)
+test_6_rss = sum((test_6_predictions - test_6['price'])**2)
+print(test_6_rss)
 
 
 
